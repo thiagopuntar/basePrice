@@ -1,4 +1,12 @@
-import { Controller, Get, NotFoundException, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { CreateSquareMeterPriceDto } from './dtos/create-square-meter-price.dto';
 import { GetSquareMeterPriceDto } from './dtos/GetSquareMeterPrice.dto';
 import { SquareMeterPriceService } from './square-meter-price.service';
 
@@ -17,5 +25,15 @@ export class SquareMeterPriceController {
     }
 
     return price;
+  }
+
+  @Post()
+  async createSquareMeterPrice(
+    @Body() createSquareMeter: CreateSquareMeterPriceDto,
+  ) {
+    const created = await this.service.createSquareMeterPrice(
+      createSquareMeter,
+    );
+    return created;
   }
 }
